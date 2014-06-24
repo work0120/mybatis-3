@@ -27,7 +27,7 @@ import org.apache.logging.log4j.spi.AbstractLoggerWrapper;
 /**
  * @author Eduardo Macarron
  */
-public class Log4j2AbstractLoggerImpl implements Log {
+public class Log4j2AbstractLoggerImpl extends AbstractLogger implements Log {
   
   private static Marker MARKER = MarkerManager.getMarker(LogFactory.MARKER);
   
@@ -48,23 +48,72 @@ public class Log4j2AbstractLoggerImpl implements Log {
   }
 
   public void error(String s, Throwable e) {
-    log.log(MARKER, FQCN, Level.ERROR, new SimpleMessage(s), e);
+    log(MARKER, FQCN, Level.ERROR, new SimpleMessage(s), e);
   }
 
   public void error(String s) {
-    log.log(MARKER, FQCN, Level.ERROR, new SimpleMessage(s), null);
+    log(MARKER, FQCN, Level.ERROR, new SimpleMessage(s), null);
   }
 
   public void debug(String s) {
-    log.log(MARKER, FQCN, Level.DEBUG, new SimpleMessage(s), null);
+    log(MARKER, FQCN, Level.DEBUG, new SimpleMessage(s), null);
   }
 
   public void trace(String s) {
-    log.log(MARKER, FQCN, Level.TRACE, new SimpleMessage(s), null);
+    log(MARKER, FQCN, Level.TRACE, new SimpleMessage(s), null);
   }
 
   public void warn(String s) {
-    log.log(MARKER, FQCN, Level.WARN, new SimpleMessage(s), null);
+    log(MARKER, FQCN, Level.WARN, new SimpleMessage(s), null);
   }
+  
+  
+  @Override
+	protected boolean isEnabled(Level level, Marker marker, Message data,
+			Throwable t) {
+		
+		return false;
+	}
+
+
+	@Override
+	protected boolean isEnabled(Level level, Marker marker, Object data,
+			Throwable t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	protected boolean isEnabled(Level level, Marker marker, String data) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	protected boolean isEnabled(Level level, Marker marker, String data,
+			Object... p1) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	protected boolean isEnabled(Level level, Marker marker, String data,
+			Throwable t) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+
+	@Override
+	public void log(Marker marker, String fqcn, Level level, Message data,
+			Throwable t) {
+		log.log(level, marker, data, t);
+		
+	}
+
+  
 
 }
